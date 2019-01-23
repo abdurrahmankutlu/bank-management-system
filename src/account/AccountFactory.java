@@ -1,6 +1,10 @@
-final class AccountFactory {
+package account;
 
-    static BasicAccount getAccount(AccountType accountType) {
+import account.*;
+
+public final class AccountFactory {
+
+    public static BasicAccount getAccount(AccountType accountType) {
         if (accountType == AccountType.DOLAR) {
             return getDolarAccount();
         } else if (accountType == AccountType.EURO) {
