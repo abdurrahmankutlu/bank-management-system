@@ -6,7 +6,17 @@ import account.BasicAccount;
 
 import java.util.List;
 
-abstract class BaseUser {
+public abstract class BaseUser {
+
+    private String firstName;
+    private String lastName;
+    private UserType userType;
+
+    public BaseUser(String firstName, String lastName, UserType userType) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userType = userType;
+    }
 
     private List<BasicAccount> accounts;
 

@@ -4,6 +4,9 @@ import account.AccountType;
 import account.BasicAccount;
 
 public class DemoUser extends BaseUser {
+    public DemoUser(String firstName, String lastName, UserType userType) {
+        super(firstName, lastName, userType);
+    }
 
     public boolean checkoutMoney(AccountType accountType, double amount) {
         BasicAccount account = getAccount(accountType);
