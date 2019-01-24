@@ -44,6 +44,10 @@ public class Bank {
         // Kullanıcının sahip olduğu iki account arasında para transferi gerçekleşecek
         // Discount, cut ?
         // Exchange yönetimi nasıl bir pattern üzerinden yapılmalı
+        // Mediator Pattern (arabulucu),
+        // Arabulucu tüm exchange ratelere sahip olabilir yada her currency içinde bir baseunit tarzı bir değişken tutup,
+        // tüm para tiplerini önce bu tipe dönüştürüp sonra diğer para tipinde de tam tersini uygulayabiliriz.
+        // Arabulucuda bu dönüştürmeyi kendisi yapar.
     }
 
     public void payBills() {
