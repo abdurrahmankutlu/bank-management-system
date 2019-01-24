@@ -1,7 +1,7 @@
 package bank;
 
-import account.AccountFactory;
-import account.AccountType;
+import wallet.WalletFactory;
+import wallet.WalletType;
 import user.BaseUser;
 import user.DemoUser;
 import user.SuperUser;
@@ -14,7 +14,7 @@ public class Bank {
 
     private String name;
     private List<BaseUser> userList = new ArrayList<>();
-    private AccountFactory accountFactory;
+    private WalletFactory walletFactory;
 
 
     public void createUser(String firstName, String lastName, UserType userType) {
@@ -25,23 +25,23 @@ public class Bank {
         }
     }
 
-    public void addAccount(BaseUser user, AccountType accountType) {
+    public void addAccount(BaseUser user, WalletType walletType) {
 
         // kullanıcının açmak istediği hesap türünden hesap açmaya yetkisinin olup olmadığı kontrol edilecek
-        // account bilgisi user 'ın altında tutulmasına rağmen bankada kontroller yapıldıktan sonra kullanıcıya
+        // wallet bilgisi user 'ın altında tutulmasına rağmen bankada kontroller yapıldıktan sonra kullanıcıya
         // hesap açılacak
     }
 
-    public void transferMoney(BaseUser sourceUser, BaseUser targetUser, AccountType accountType, Integer amount) {
+    public void transferMoney(BaseUser sourceUser, BaseUser targetUser, WalletType walletType, Integer amount) {
 
         // Kullanıcıların para transferinde gönderilmek ve alınmak istenen tipte hesapları var mı kontrolü olacak
         // Kullanıcı tipine göre davranış sergilenmeli mi ?
         // para transfer edilecek (discount or cut ) ?
     }
 
-    public void exchangeMoney(BaseUser user, AccountType sourceAccount, AccountType targetAccount) {
+    public void exchangeMoney(BaseUser user, WalletType sourceAccount, WalletType targetAccount) {
 
-        // Kullanıcının sahip olduğu iki account arasında para transferi gerçekleşecek
+        // Kullanıcının sahip olduğu iki wallet arasında para transferi gerçekleşecek
         // Discount, cut ?
         // Exchange yönetimi nasıl bir pattern üzerinden yapılmalı
         // Mediator Pattern (arabulucu),

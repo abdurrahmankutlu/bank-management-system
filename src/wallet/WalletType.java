@@ -1,6 +1,6 @@
-package account;
+package wallet;
 
-public enum AccountType {
+public enum WalletType {
     MANAT,
     DOLAR,
     EURO,

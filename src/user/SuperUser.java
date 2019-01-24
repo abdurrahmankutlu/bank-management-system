@@ -1,7 +1,7 @@
 package user;
 
-import account.AccountType;
-import account.BasicAccount;
+import wallet.WalletType;
+import wallet.BasicWallet;
 
 public class SuperUser extends BaseUser {
 
@@ -10,18 +10,14 @@ public class SuperUser extends BaseUser {
         super(firstName, lastName, userType);
     }
 
-    public boolean checkoutMoney(AccountType accountType, double amount) {
-        BasicAccount account = getAccount(accountType);
-        if (account.getBalance() >= amount) {
-            account.setBalance(account.getBalance() - amount);
-            return true;
-        } else {
-            return false;
-        }
+    public boolean withdrawFromWallet(WalletType walletType, double amount) {
+        // to be implemented
+        BasicWallet account = getAccount(walletType);
+        return true;
     }
 
-    public void depositMoney(AccountType accountType, double amount) {
-        BasicAccount account = getAccount(accountType);
-        account.setBalance(account.getBalance() + amount);
+    public void depositFromWallet(WalletType walletType, double amount) {
+        BasicWallet account = getAccount(walletType);
+        // to be implemented
     }
 }
