@@ -1,22 +1,13 @@
 package user;
 
-import wallet.WalletType;
-import wallet.BasicWallet;
-
 public class DemoUser extends BaseUser {
 
-    public DemoUser(String firstName, String lastName, UserType userType) {
-        super(firstName, lastName, userType);
-    }
+    private static final double cutRate = 0.05;
 
-    public boolean withdrawFromWallet(WalletType walletType, double amount) {
-        // to be implemented
-        BasicWallet account = getAccount(walletType);
-        return true;
+    public DemoUser(String firstName, String lastName) {
+        super(firstName, lastName);
     }
-
-    public void depositFromWallet(WalletType walletType, double amount) {
-        BasicWallet account = getAccount(walletType);
-        // to be implemented
+    public  double getCutRate() {
+        return cutRate;
     }
 }

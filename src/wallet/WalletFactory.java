@@ -1,16 +1,17 @@
 package wallet;
 
 
+
 public final class WalletFactory {
 
-    public static BasicWallet getAccount(WalletType walletType) {
-        if (walletType == WalletType.DOLAR) {
-            return getDolarAccount();
-        } else if (walletType == WalletType.EURO) {
+    public static BasicWallet getWallet(MoneyType moneyType) {
+        if (moneyType == MoneyType.DOLLAR) {
+            return getDollarAccount();
+        } else if (moneyType == MoneyType.EURO) {
             return getEuroAccount();
-        } else if (walletType == WalletType.LIRA) {
+        } else if (moneyType == MoneyType.LIRA) {
             return getLiraAccount();
-        } else if (walletType == WalletType.MANAT) {
+        } else if (moneyType == MoneyType.MANAT) {
             return getManatAccount();
         } else {
             return null;
@@ -21,8 +22,8 @@ public final class WalletFactory {
         return new ManatWallet(0);
     }
 
-    private static BasicWallet getDolarAccount() {
-        return new DolarWallet(0);
+    private static BasicWallet getDollarAccount() {
+        return new DollarWallet(0);
     }
 
     private static BasicWallet getEuroAccount() {

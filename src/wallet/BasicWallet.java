@@ -3,7 +3,7 @@ package wallet;
 public abstract class BasicWallet {
     private double balance;
 
-    private WalletType walletType;
+    private MoneyType moneyType;
 
     boolean status;
 
@@ -11,23 +11,28 @@ public abstract class BasicWallet {
         this.balance = balance;
     }
 
-    public void depositMoney() {
-        // para koy
+    public void depositMoney(double amount) {
+        this.balance = this.balance + amount;
     }
 
-    public void withdrawMoney() {
-        // para çek
+    public boolean withdrawMoney(double amount) {
+        if (amount <= this.balance) {
+            this.balance = this.balance - amount;
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public WalletType getWalletType() {
-        return walletType;
+    public MoneyType getMoneyType() {
+        return moneyType;
     }
 
-    public void setWalletType(WalletType walletType) {
-        this.walletType = walletType;
+    public void setMoneyType(MoneyType moneyType) {
+        this.moneyType = moneyType;
     }
 
     public void printBalance() {
-        System.out.println("Balance is: "+ balance);
+        System.out.println("Balance is: " + balance);
     }
 }

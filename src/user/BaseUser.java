@@ -1,7 +1,7 @@
 package user;
 
 import wallet.WalletFactory;
-import wallet.WalletType;
+import wallet.MoneyType;
 import wallet.BasicWallet;
 
 import java.util.List;
@@ -12,24 +12,31 @@ public abstract class BaseUser {
     private String lastName;
     private UserType userType;
 
-    private List<BasicWallet> accounts;
+    private List<BasicWallet> wallets;
 
-    public BaseUser(String firstName, String lastName, UserType userType) {
+    public BaseUser(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userType = userType;
     }
 
-    BasicWallet getAccount(WalletType walletType) {
-            BasicWallet currentAccount = accounts.stream()
-                    .filter(account -> account.getWalletType() == walletType)
+    public BasicWallet getWallet(MoneyType moneyType) {
+            BasicWallet currentAccount = wallets.stream()
+                    .filter(account -> account.getMoneyType() == moneyType)
                     .findFirst()
-                    .orElse(WalletFactory.getAccount(walletType));
-            accounts.add(currentAccount);
+                    .orElse(WalletFactory.getWallet(moneyType));
+            wallets.add(currentAccount);
             return currentAccount;
     }
 
-    protected abstract boolean withdrawFromWallet(WalletType walletType, double amount);
+//    public boolean withdrawFromWallet(MoneyType moneyType, double amount) {
+//        BasicWallet account = getWallet(moneyType);
+//        return  (account.withdrawMoney(amount)) ;
+//    }
+//
+//    public void depositFromWallet(MoneyType moneyType, double amount) {
+//        BasicWallet account = getWallet(moneyType);
+//        account.depositMoney(amount);
+//    }
 
-    protected  abstract void depositFromWallet(WalletType walletType, double amount);
+    protected abstract double getCutRate();
 }
