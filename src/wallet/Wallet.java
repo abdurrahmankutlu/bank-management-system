@@ -1,14 +1,17 @@
 package wallet;
 
-public abstract class BasicWallet {
+import money.BaseMoney;
+
+public class Wallet {
     private double balance;
 
-    private MoneyType moneyType;
+    private BaseMoney moneyType;
 
     boolean status;
 
-    BasicWallet(double balance) {
+    public Wallet(double balance, BaseMoney moneyType) {
         this.balance = balance;
+        this.moneyType = moneyType;
     }
 
     public void depositMoney(double amount) {
@@ -24,11 +27,11 @@ public abstract class BasicWallet {
         }
     }
 
-    public MoneyType getMoneyType() {
+    public BaseMoney getMoneyType() {
         return moneyType;
     }
 
-    public void setMoneyType(MoneyType moneyType) {
+    public void setMoneyType(BaseMoney moneyType) {
         this.moneyType = moneyType;
     }
 

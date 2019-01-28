@@ -2,12 +2,11 @@ package user;
 
 public class DemoUser extends BaseUser {
 
-    private static final double cutRate = 0.05;
-
-    public DemoUser(String firstName, String lastName) {
-        super(firstName, lastName);
+    public DemoUser(String firstName, String lastName, UserType userType) {
+        super(firstName, lastName, userType,0.05,3);
     }
-    public  double getCutRate() {
+
+    public double getCutRate() {
         return cutRate;
     }
 }

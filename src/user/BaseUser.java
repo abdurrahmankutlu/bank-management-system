@@ -1,9 +1,9 @@
 package user;
 
-import wallet.WalletFactory;
-import wallet.MoneyType;
-import wallet.BasicWallet;
+import money.BaseMoney;
+import wallet.Wallet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseUser {
@@ -11,32 +11,43 @@ public abstract class BaseUser {
     private String firstName;
     private String lastName;
     private UserType userType;
+    double cutRate;
+    int walletLimit;
 
-    private List<BasicWallet> wallets;
+    private List<Wallet> wallets;
 
-    public BaseUser(String firstName, String lastName) {
+    BaseUser(String firstName, String lastName, UserType userType, double cutRate, int walletLimit) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userType = userType;
+        this.cutRate = cutRate;
+        this.walletLimit = walletLimit;
+        this.wallets = new ArrayList<>();
     }
 
-    public BasicWallet getWallet(MoneyType moneyType) {
-            BasicWallet currentAccount = wallets.stream()
-                    .filter(account -> account.getMoneyType() == moneyType)
-                    .findFirst()
-                    .orElse(WalletFactory.getWallet(moneyType));
-            wallets.add(currentAccount);
-            return currentAccount;
+    public Wallet getWallet(BaseMoney baseMoney) throws Exception {
+        return wallets.stream()
+                .filter(wallet -> wallet.getMoneyType() == baseMoney)
+                .findFirst()
+                .orElseThrow(() -> new Exception("Hesap bulunamadı"));
     }
-
-//    public boolean withdrawFromWallet(MoneyType moneyType, double amount) {
-//        BasicWallet account = getWallet(moneyType);
-//        return  (account.withdrawMoney(amount)) ;
-//    }
-//
-//    public void depositFromWallet(MoneyType moneyType, double amount) {
-//        BasicWallet account = getWallet(moneyType);
-//        account.depositMoney(amount);
-//    }
 
     protected abstract double getCutRate();
+
+    public int getGalletCount() {
+        return wallets.size();
+    }
+
+    public int getWalletLimit() {
+        return walletLimit;
+    }
+
+    public boolean isWalletExist(BaseMoney baseMoney) {
+        return wallets.stream()
+                .anyMatch(wallet -> wallet.getMoneyType() == baseMoney);
+    }
+
+    public List<Wallet> getWallets() {
+        return wallets;
+    }
 }
