@@ -6,6 +6,7 @@ public class DemoUser extends BaseUser {
         super(firstName, lastName, userType,0.05,3);
     }
 
+    @Override
     public double getCutRate() {
         return cutRate;
     }

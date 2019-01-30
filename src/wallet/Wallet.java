@@ -31,11 +31,7 @@ public class Wallet {
         return moneyType;
     }
 
-    public void setMoneyType(BaseMoney moneyType) {
-        this.moneyType = moneyType;
-    }
-
     public void printBalance() {
-        System.out.println("Balance is: " + balance);
+        System.out.println("Balance is: " + balance + " " + moneyType.getSymbol());
     }
 }

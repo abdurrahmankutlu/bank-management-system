@@ -1,6 +1,7 @@
 package user;
 
 import money.BaseMoney;
+import money.Dollar;
 import wallet.Wallet;
 
 import java.util.ArrayList;
@@ -12,8 +13,7 @@ public abstract class BaseUser {
     private String lastName;
     private UserType userType;
     double cutRate;
-    int walletLimit;
-
+    private int walletLimit;
     private List<Wallet> wallets;
 
     BaseUser(String firstName, String lastName, UserType userType, double cutRate, int walletLimit) {
@@ -27,14 +27,14 @@ public abstract class BaseUser {
 
     public Wallet getWallet(BaseMoney baseMoney) throws Exception {
         return wallets.stream()
-                .filter(wallet -> wallet.getMoneyType() == baseMoney)
+                .filter(wallet -> wallet.getMoneyType().getClass().isInstance(baseMoney))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Hesap bulunamadı"));
     }
 
-    protected abstract double getCutRate();
+    public abstract double getCutRate();
 
-    public int getGalletCount() {
+    public int getWalletCount() {
         return wallets.size();
     }
 
@@ -44,7 +44,7 @@ public abstract class BaseUser {
 
     public boolean isWalletExist(BaseMoney baseMoney) {
         return wallets.stream()
-                .anyMatch(wallet -> wallet.getMoneyType() == baseMoney);
+                .anyMatch(wallet -> wallet.getMoneyType().getClass().isInstance(baseMoney));
     }
 
     public List<Wallet> getWallets() {

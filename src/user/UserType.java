@@ -4,5 +4,5 @@ public enum UserType {
     STUDENT,
     TEACHER,
     EMPLOYER,
-    BANK_EMPOYER
+    BANK_EMPLOYER
 }
