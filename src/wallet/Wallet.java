@@ -2,6 +2,10 @@ package wallet;
 
 import money.BaseMoney;
 
+/**
+ * Aktfilik durumuna göre eylemler hazırlanmalı, cüzdanın yanında kredi kartı tanımı ve kullanımı
+ * sonrasında da faturaları öde şeklinde bir tasarım geliştirilmesi yapılabilir.
+ */
 public class Wallet {
     private double balance;
 

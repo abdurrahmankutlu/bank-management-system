@@ -11,6 +11,9 @@ import wallet.Wallet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Kukllanıcı tiplerine göre nasıl bir farklılık yapılabilir. Student teacher etc.
+ */
 public class Bank {
 
     private String name;
@@ -50,9 +53,6 @@ public class Bank {
     }
 
     public void transferMoney(BaseUser sourceUser, BaseUser targetUser, BaseMoney moneyType, double amount) {
-
-        // Bu metot kullanıcı tipine göre bankaya komisyon alacak
-        // Komisyon strategisi uygulanabilir
         try {
             if (targetUser.isWalletExist(moneyType) && sourceUser.getWallet(moneyType).withdrawMoney(amount)) {
                 amount = getCommission(sourceUser, moneyType, amount);
@@ -82,9 +82,6 @@ public class Bank {
     }
 
     public void exchangeMoney(BaseUser user, BaseMoney sourceMoneyType, BaseMoney targetMoneyType, double amount) {
-
-        // kullanıcı tipine göre komisyon alınacak
-
         try {
             if (user.isWalletExist(targetMoneyType) && user.getWallet(sourceMoneyType).withdrawMoney(amount)) {
                 amount = getCommission(user, sourceMoneyType, amount);

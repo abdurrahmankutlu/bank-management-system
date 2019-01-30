@@ -7,6 +7,9 @@ import wallet.Wallet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Reflection kullanımları ortadan kaldırılabilir mi ?
+ */
 public abstract class BaseUser {
 
     private String firstName;

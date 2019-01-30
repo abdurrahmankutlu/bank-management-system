@@ -4,9 +4,13 @@ package money;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Bu metot static olması lazım ve aynı zamanda her para tipi tanımlandığında buraya eklenmesinin daha güzel bir yolunun
+ * bulunması lazım
+ */
 public class ExchangeMediator {
 
-    private  Map<Class, Double> exchangeRates = new HashMap<>();
+    private  Map<Class, Double> exchangeRates;
 
     public ExchangeMediator() {
         exchangeRates = new HashMap<>();
