@@ -1,6 +1,6 @@
 package wallet;
 
-import money.BaseMoney;
+import money.MoneyTypes;
 
 /**
  * Aktfilik durumuna göre eylemler hazırlanmalı, cüzdanın yanında kredi kartı tanımı ve kullanımı
@@ -9,11 +9,11 @@ import money.BaseMoney;
 public class Wallet {
     private double balance;
 
-    private BaseMoney moneyType;
+    private MoneyTypes moneyType;
 
     boolean status;
 
-    public Wallet(double balance, BaseMoney moneyType) {
+    public Wallet(double balance, MoneyTypes moneyType) {
         this.balance = balance;
         this.moneyType = moneyType;
     }
@@ -31,7 +31,7 @@ public class Wallet {
         }
     }
 
-    public BaseMoney getMoneyType() {
+    public MoneyTypes getMoneyType() {
         return moneyType;
     }
 

@@ -1,7 +1,7 @@
 package bank;
 
-import money.BaseMoney;
 import money.ExchangeMediator;
+import money.MoneyTypes;
 import user.BaseUser;
 import user.DemoUser;
 import user.SuperUser;
@@ -18,10 +18,10 @@ public class Bank {
 
     private String name;
     private double fund;
-    private BaseMoney fundType;
+    private MoneyTypes fundType;
     private List<BaseUser> userList = new ArrayList<>();
 
-    public Bank(String name, double fund, BaseMoney fundType) {
+    public Bank(String name, double fund, MoneyTypes fundType) {
         this.name = name;
         this.fund = fund;
         this.fundType = fundType;
@@ -44,13 +44,13 @@ public class Bank {
         return userList;
     }
 
-    public void addWallet(BaseUser user, BaseMoney moneyType) {
+    public void addWallet(BaseUser user, MoneyTypes moneyType) {
         if (user.getWalletCount() < user.getWalletLimit() && !user.isWalletExist(moneyType)) {
             user.getWallets().add(new Wallet(0, moneyType));
         }
     }
 
-    public void transferMoney(BaseUser sourceUser, BaseUser targetUser, BaseMoney moneyType, double amount) {
+    public void transferMoney(BaseUser sourceUser, BaseUser targetUser, MoneyTypes moneyType, double amount) {
         try {
             if (targetUser.isWalletExist(moneyType) && sourceUser.getWallet(moneyType).withdrawMoney(amount)) {
                 amount = getCommission(sourceUser, moneyType, amount);
@@ -63,7 +63,7 @@ public class Bank {
         }
     }
 
-    public void depositMoney(BaseUser user, BaseMoney moneyType, double amount) {
+    public void depositMoney(BaseUser user, MoneyTypes moneyType, double amount) {
         try {
             user.getWallet(moneyType).depositMoney(getCommission(user, moneyType, amount));
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class Bank {
         }
     }
 
-    public void withdrawMoney(BaseUser user, BaseMoney moneyType, double amount) {
+    public void withdrawMoney(BaseUser user, MoneyTypes moneyType, double amount) {
         try {
             user.getWallet(moneyType).withdrawMoney(getCommission(user, moneyType, amount));
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class Bank {
         }
     }
 
-    public void exchangeMoney(BaseUser user, BaseMoney sourceMoneyType, BaseMoney targetMoneyType, double amount) {
+    public void exchangeMoney(BaseUser user, MoneyTypes sourceMoneyType, MoneyTypes targetMoneyType, double amount) {
         try {
             if (user.isWalletExist(targetMoneyType) && user.getWallet(sourceMoneyType).withdrawMoney(amount)) {
                 amount = getCommission(user, sourceMoneyType, amount);
@@ -98,13 +98,13 @@ public class Bank {
         // Burada nasıl bir pattern uygulanmalı
     }
 
-    private double getCommission(BaseUser user, BaseMoney moneyType, double amount) {
+    private double getCommission(BaseUser user, MoneyTypes moneyType, double amount) {
         double cut = amount * user.getCutRate();
         this.fund += (cut * ExchangeMediator.getExchangeRate(moneyType, this.fundType));
         return amount - cut;
     }
 
     public void printFundStatus() {
-        System.out.println("The bank has: " + this.fund + "base units");
+        System.out.println("The bank has: " + this.fund + " " + this.fundType.getSymbol());
     }
 }

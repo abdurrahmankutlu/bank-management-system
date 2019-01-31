@@ -6,24 +6,24 @@ import java.util.Map;
 
 public final class ExchangeMediator {
 
-    private static Map<Class, Double> exchangeRates;
+    private static Map<MoneyTypes, Double> exchangeRates;
 
     static {
         exchangeRates = new HashMap<>();
-        exchangeRates.put(Dollar.class, 5.00);
-        exchangeRates.put(Euro.class, 6.00);
-        exchangeRates.put(Lira.class, 1.00);
-        exchangeRates.put(Manat.class, 3.00);
+        exchangeRates.put(MoneyTypes.DOLLAR, 5.00);
+        exchangeRates.put(MoneyTypes.EURO, 6.00);
+        exchangeRates.put(MoneyTypes.LIRA, 1.00);
+        exchangeRates.put(MoneyTypes.MANAT, 3.00);
     }
 
-    public static void updateExchangeRate(BaseMoney moneyType, double newRate) {
-        exchangeRates.replace(moneyType.getClass(),newRate);
+    public static void updateExchangeRate(MoneyTypes moneyType, double newRate) {
+        exchangeRates.replace(moneyType,newRate);
     }
 
-    public static void addExchangeRate(BaseMoney moneyType, double newRate) {
-        exchangeRates.putIfAbsent(moneyType.getClass(), newRate);
+    public static void addExchangeRate(MoneyTypes moneyType, double newRate) {
+        exchangeRates.putIfAbsent(moneyType, newRate);
     }
-    public static double getExchangeRate(BaseMoney sourceMoneyType, BaseMoney targetMoneyType) {
-        return exchangeRates.get(sourceMoneyType.getClass())/exchangeRates.get(targetMoneyType.getClass());
+    public static double getExchangeRate(MoneyTypes sourceMoneyType, MoneyTypes targetMoneyType) {
+        return exchangeRates.get(sourceMoneyType)/exchangeRates.get(targetMoneyType);
     }
 }

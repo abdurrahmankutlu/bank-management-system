@@ -1,15 +1,11 @@
 package user;
 
-import money.BaseMoney;
-import money.Dollar;
+import money.MoneyTypes;
 import wallet.Wallet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Reflection kullanımları ortadan kaldırılabilir mi ?
- */
 public abstract class BaseUser {
 
     private String firstName;
@@ -28,9 +24,9 @@ public abstract class BaseUser {
         this.wallets = new ArrayList<>();
     }
 
-    public Wallet getWallet(BaseMoney baseMoney) throws Exception {
+    public Wallet getWallet(MoneyTypes moneyType) throws Exception {
         return wallets.stream()
-                .filter(wallet -> wallet.getMoneyType().getClass().isInstance(baseMoney))
+                .filter(wallet -> wallet.getMoneyType().equals(moneyType))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Hesap bulunamadı"));
     }
@@ -45,9 +41,9 @@ public abstract class BaseUser {
         return walletLimit;
     }
 
-    public boolean isWalletExist(BaseMoney baseMoney) {
+    public boolean isWalletExist(MoneyTypes moneyType) {
         return wallets.stream()
-                .anyMatch(wallet -> wallet.getMoneyType().getClass().isInstance(baseMoney));
+                .anyMatch(wallet -> wallet.getMoneyType().equals(moneyType));
     }
 
     public List<Wallet> getWallets() {
