@@ -1,7 +1,7 @@
 package money;
 
 /**
- * Bu class ve bu class tan türeyeb tüm paralar static olmalılardır. Fakat constructor bunu engelliyor.
+ * Bu class ve bu class tan türeyen tüm paralar static olmalılardır. Fakat constructor bunu engelliyor.
  * Her para tipi tanımında new demememiz gerekiyor, ki her para tipi zaten birbirinin aynısı, zaten static olmalı
  *  bir diğer alternatif de enum kullanmak.
  */

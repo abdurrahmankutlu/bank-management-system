@@ -1,6 +1,7 @@
 import bank.Bank;
 import money.Dollar;
 import money.Euro;
+import money.Lira;
 import user.BaseUser;
 import user.UserType;
 import wallet.Wallet;
@@ -9,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Bank fakirBank = new Bank("Fakir Bank A.Ş.", 1500.0);
+        Bank fakirBank = new Bank("Fakir Bank A.Ş.", 1500.0, new Lira());
         BaseUser user1 = fakirBank.createUser("Abdurrahman","Kutlu", UserType.STUDENT);
         BaseUser user2 = fakirBank.createUser("Emre","Yavuz", UserType.BANK_EMPLOYER);
 
@@ -23,10 +24,10 @@ public class Main {
         user1.getWallets().forEach(Wallet::printBalance);
 
 
-        fakirBank.transferMoney(user1,user2,new Dollar(),500);
+        fakirBank.transferMoney(user1,user2,new Dollar(),200);
         user1.getWallets().forEach(Wallet::printBalance);
         fakirBank.addWallet(user2,new Dollar());
-        fakirBank.transferMoney(user1,user2,new Dollar(),500);
+        fakirBank.transferMoney(user1,user2,new Dollar(),200);
 
         user1.getWallets().forEach(Wallet::printBalance);
         user2.getWallets().forEach(Wallet::printBalance);

@@ -18,15 +18,13 @@ public class Bank {
 
     private String name;
     private double fund;
+    private BaseMoney fundType;
     private List<BaseUser> userList = new ArrayList<>();
 
-    private ExchangeMediator exchangeMediator;
-
-
-    public Bank(String name, double fund) {
+    public Bank(String name, double fund, BaseMoney fundType) {
         this.name = name;
         this.fund = fund;
-        this.exchangeMediator = new ExchangeMediator();
+        this.fundType = fundType;
     }
 
 
@@ -85,8 +83,8 @@ public class Bank {
         try {
             if (user.isWalletExist(targetMoneyType) && user.getWallet(sourceMoneyType).withdrawMoney(amount)) {
                 amount = getCommission(user, sourceMoneyType, amount);
-                double amountAsBaseUnit = amount / exchangeMediator.getExchangeRate(targetMoneyType);
-                user.getWallet(targetMoneyType).depositMoney(exchangeMediator.getExchangeRate(sourceMoneyType) * amountAsBaseUnit);
+                double amountAsNewType = amount * ExchangeMediator.getExchangeRate(sourceMoneyType, targetMoneyType);
+                user.getWallet(targetMoneyType).depositMoney(amountAsNewType);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -102,7 +100,7 @@ public class Bank {
 
     private double getCommission(BaseUser user, BaseMoney moneyType, double amount) {
         double cut = amount * user.getCutRate();
-        this.fund += (cut * exchangeMediator.getExchangeRate(moneyType));
+        this.fund += (cut * ExchangeMediator.getExchangeRate(moneyType, this.fundType));
         return amount - cut;
     }
 
