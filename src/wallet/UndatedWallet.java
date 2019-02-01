@@ -6,14 +6,14 @@ import money.MoneyTypes;
  * Aktfilik durumuna göre eylemler hazırlanmalı, cüzdanın yanında kredi kartı tanımı ve kullanımı
  * sonrasında da faturaları öde şeklinde bir tasarım geliştirilmesi yapılabilir.
  */
-public class Wallet implements Transferable {
+public class UndatedWallet implements Transferable {
     private double balance;
 
     private MoneyTypes moneyType;
 
     boolean status;
 
-    public Wallet(double balance, MoneyTypes moneyType) {
+    public UndatedWallet(double balance, MoneyTypes moneyType) {
         this.balance = balance;
         this.moneyType = moneyType;
     }

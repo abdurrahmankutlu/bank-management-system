@@ -6,7 +6,7 @@ import user.BaseUser;
 import user.DemoUser;
 import user.SuperUser;
 import user.UserType;
-import wallet.Wallet;
+import wallet.UndatedWallet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class Bank {
 
     public void addWallet(BaseUser user, MoneyTypes moneyType) {
         if (user.getWalletCount() < user.getWalletLimit() && !user.isWalletExist(moneyType)) {
-            user.getWallets().add(new Wallet(0, moneyType));
+            user.getUndatedWallets().add(new UndatedWallet(0, moneyType));
         }
     }
 

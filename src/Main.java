@@ -2,7 +2,7 @@ import bank.Bank;
 import money.MoneyTypes;
 import user.BaseUser;
 import user.UserType;
-import wallet.Wallet;
+import wallet.UndatedWallet;
 
 public class Main {
 
@@ -19,20 +19,20 @@ public class Main {
         System.out.println(user2.isWalletExist(MoneyTypes.DOLLAR));
 
         fakirBank.depositMoney(user1, MoneyTypes.DOLLAR, 500);
-        user1.getWallets().forEach(Wallet::printBalance);
+        user1.getUndatedWallets().forEach(UndatedWallet::printBalance);
 
 
         fakirBank.transferMoney(user1, user2, MoneyTypes.DOLLAR, 200);
-        user1.getWallets().forEach(Wallet::printBalance);
+        user1.getUndatedWallets().forEach(UndatedWallet::printBalance);
         fakirBank.addWallet(user2, MoneyTypes.DOLLAR);
         fakirBank.transferMoney(user1, user2, MoneyTypes.DOLLAR, 200);
 
-        user1.getWallets().forEach(Wallet::printBalance);
-        user2.getWallets().forEach(Wallet::printBalance);
+        user1.getUndatedWallets().forEach(UndatedWallet::printBalance);
+        user2.getUndatedWallets().forEach(UndatedWallet::printBalance);
 
         fakirBank.addWallet(user2, MoneyTypes.EURO);
         fakirBank.exchangeMoney(user2, MoneyTypes.DOLLAR, MoneyTypes.EURO, 50);
-        user2.getWallets().forEach(Wallet::printBalance);
+        user2.getUndatedWallets().forEach(UndatedWallet::printBalance);
 
     }
 }

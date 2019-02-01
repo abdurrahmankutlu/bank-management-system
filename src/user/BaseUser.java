@@ -1,7 +1,7 @@
 package user;
 
 import money.MoneyTypes;
-import wallet.Wallet;
+import wallet.UndatedWallet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public abstract class BaseUser {
     private UserType userType;
     double cutRate;
     private int walletLimit;
-    private List<Wallet> wallets;
+    private List<UndatedWallet> undatedWallets;
 
     BaseUser(String firstName, String lastName, UserType userType, double cutRate, int walletLimit) {
         this.firstName = firstName;
@@ -21,12 +21,12 @@ public abstract class BaseUser {
         this.userType = userType;
         this.cutRate = cutRate;
         this.walletLimit = walletLimit;
-        this.wallets = new ArrayList<>();
+        this.undatedWallets = new ArrayList<>();
     }
 
-    public Wallet getWallet(MoneyTypes moneyType) throws Exception {
-        return wallets.stream()
-                .filter(wallet -> wallet.getMoneyType().equals(moneyType))
+    public UndatedWallet getWallet(MoneyTypes moneyType) throws Exception {
+        return undatedWallets.stream()
+                .filter(undatedWallet -> undatedWallet.getMoneyType().equals(moneyType))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Hesap bulunamadı"));
     }
@@ -34,7 +34,7 @@ public abstract class BaseUser {
     public abstract double getCutRate();
 
     public int getWalletCount() {
-        return wallets.size();
+        return undatedWallets.size();
     }
 
     public int getWalletLimit() {
@@ -42,11 +42,11 @@ public abstract class BaseUser {
     }
 
     public boolean isWalletExist(MoneyTypes moneyType) {
-        return wallets.stream()
-                .anyMatch(wallet -> wallet.getMoneyType().equals(moneyType));
+        return undatedWallets.stream()
+                .anyMatch(undatedWallet -> undatedWallet.getMoneyType().equals(moneyType));
     }
 
-    public List<Wallet> getWallets() {
-        return wallets;
+    public List<UndatedWallet> getUndatedWallets() {
+        return undatedWallets;
     }
 }
