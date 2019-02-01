@@ -6,8 +6,12 @@ import user.BaseUser;
 import user.DemoUser;
 import user.SuperUser;
 import user.UserType;
+import utils.SimulatorUtils;
+import wallet.DeferredWallet;
 import wallet.UndatedWallet;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +24,57 @@ public class Bank {
     private double fund;
     private MoneyTypes fundType;
     private List<BaseUser> userList = new ArrayList<>();
+    private List<ExpiryTerm> expiryTerms = new ArrayList<>();
 
     public Bank(String name, double fund, MoneyTypes fundType) {
         this.name = name;
         this.fund = fund;
         this.fundType = fundType;
+        addExpiryTerm("Short Term", 3, 5);
+        addExpiryTerm("Average Term", 6, 12);
+        addExpiryTerm("Long Term", 9, 18);
     }
 
+    public class ExpiryTerm {
+        private String name;
+        private int monthCount;
+        private int percentage;
+        private boolean active = true;
+
+        private ExpiryTerm(String name, int monthCount, int percentage) {
+            this.monthCount = monthCount;
+            this.name = name;
+            this.percentage = percentage;
+        }
+
+        public void deactivate() {
+            this.active = false;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getMonthCount() {
+            return monthCount;
+        }
+
+        public int getPercentage() {
+            return percentage;
+        }
+
+        public boolean isActive() {
+            return active;
+        }
+    }
+
+    public void addExpiryTerm(String name, int monthCount, int percentage) {
+        expiryTerms.add(new ExpiryTerm(name, monthCount, percentage));
+    }
+
+    public List<ExpiryTerm> getExpiryTerms() {
+        return this.expiryTerms;
+    }
 
     public BaseUser createUser(String firstName, String lastName, UserType userType) {
         BaseUser newUser;
@@ -46,8 +94,19 @@ public class Bank {
 
     public void addWallet(BaseUser user, MoneyTypes moneyType) {
         if (user.getWalletCount() < user.getWalletLimit() && !user.isWalletExist(moneyType)) {
-            user.getUndatedWallets().add(new UndatedWallet(0, moneyType));
+            user.getWallets().add(new UndatedWallet(0, moneyType));
         }
+    }
+
+    public void addDeferredWallet(BaseUser user, MoneyTypes moneyType, ExpiryTerm term, double amount) {
+        if (user.getWalletCount() < user.getWalletLimit() && !user.isWalletExist(moneyType)) {
+            Instant endDate = SimulatorUtils.getCurrentTime().plus((term.monthCount * 30), ChronoUnit.DAYS);
+            user.getWallets().add(new DeferredWallet(amount, moneyType, endDate));
+        }
+    }
+
+    public void endLoan(BaseUser user, MoneyTypes moneyType) {
+
     }
 
     public void transferMoney(BaseUser sourceUser, BaseUser targetUser, MoneyTypes moneyType, double amount) {

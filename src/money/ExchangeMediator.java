@@ -17,13 +17,14 @@ public final class ExchangeMediator {
     }
 
     public static void updateExchangeRate(MoneyTypes moneyType, double newRate) {
-        exchangeRates.replace(moneyType,newRate);
+        exchangeRates.replace(moneyType, newRate);
     }
 
     public static void addExchangeRate(MoneyTypes moneyType, double newRate) {
         exchangeRates.putIfAbsent(moneyType, newRate);
     }
+
     public static double getExchangeRate(MoneyTypes sourceMoneyType, MoneyTypes targetMoneyType) {
-        return exchangeRates.get(sourceMoneyType)/exchangeRates.get(targetMoneyType);
+        return exchangeRates.get(sourceMoneyType) / exchangeRates.get(targetMoneyType);
     }
 }

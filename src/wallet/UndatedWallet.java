@@ -33,10 +33,12 @@ public class UndatedWallet implements Transferable {
         }
     }
 
+    @Override
     public MoneyTypes getMoneyType() {
         return moneyType;
     }
 
+    @Override
     public void printBalance() {
         System.out.println("Balance is: " + balance + " " + moneyType.getSymbol());
     }
